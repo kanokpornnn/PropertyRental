@@ -1,0 +1,322 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentSpace | Property Rental</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-icon">⌂</div>
+      <div>
+        <h2>RentSpace</h2>
+        <span>PROPERTY RENTAL</span>
+      </div>
+    </div>
+
+    <div class="menu-label">MAIN MENU</div>
+
+    <nav class="menu">
+      <button class="menu-item active" data-page="dashboard">
+        <span>▦</span> Dashboard
+      </button>
+
+      <button class="menu-item" data-page="property">
+        <span>⌂</span> ลงทะเบียนห้องเช่า
+      </button>
+
+      <button class="menu-item" data-page="agreement">
+        <span>▤</span> สร้างสัญญาเช่า
+      </button>
+
+      <button class="menu-item" data-page="confirm">
+        <span>✓</span> ยืนยันสัญญา
+      </button>
+
+      <button class="menu-item" data-page="deposit">
+        <span>◈</span> ฝากเงินประกัน
+      </button>
+
+      <button class="menu-item" data-page="payment">
+        <span>฿</span> ชำระค่าเช่า
+      </button>
+
+      <button class="menu-item" data-page="refund">
+        <span>↩</span> คืนเงินประกัน
+      </button>
+
+      <button class="menu-item" data-page="dispute">
+        <span>⚑</span> จัดการข้อพิพาท
+      </button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <span class="network-dot"></span>
+      Sepolia Testnet
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <header class="topbar">
+      <div>
+        <p class="breadcrumb">PROPERTY MANAGEMENT / OVERVIEW</p>
+        <h1 id="pageTitle">Dashboard</h1>
+      </div>
+
+      <button id="connectWallet" class="wallet-btn">
+        Connect Wallet
+      </button>
+    </header>
+
+    <div id="statusMessage" class="status-message" role="status" aria-live="polite"></div>
+
+    <!-- Dashboard -->
+    <section id="dashboard" class="page active">
+      <div class="welcome-card">
+        <div>
+          <span class="eyebrow">WELCOME TO RENTSPACE</span>
+          <h2>จัดการห้องเช่าได้ง่ายขึ้น</h2>
+          <p>
+            ระบบจัดการสัญญาเช่าและเงินประกัน
+            ด้วยเทคโนโลยี Blockchain
+          </p>
+          <button class="primary-btn" data-go="property">
+            + ลงทะเบียนห้องเช่า
+          </button>
+        </div>
+        <div class="welcome-art">⌂</div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <p>ห้องเช่าทั้งหมด</p>
+          <h2 id="propertyCount">—</h2>
+          <span>Total Properties</span>
+        </div>
+
+        <div class="stat-card">
+          <p>สัญญาเช่าทั้งหมด</p>
+          <h2 id="agreementCount">—</h2>
+          <span>Total Agreements</span>
+        </div>
+
+        <div class="stat-card">
+          <p>เครือข่าย</p>
+          <h2>Sepolia</h2>
+          <span>Ethereum Testnet</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3>เกี่ยวกับระบบ</h3>
+        <p>
+          RentSpace ช่วยจัดการห้องเช่า สัญญาเช่า
+          การฝากเงินประกัน การชำระค่าเช่า
+          และการจัดการข้อพิพาทผ่าน Smart Contract
+        </p>
+        <p class="muted">
+          เชื่อมต่อ MetaMask เพื่อเริ่มใช้งาน
+          โดยธุรกรรมทั้งหมดใช้ SepoliaETH สำหรับการทดสอบ
+        </p>
+      </div>
+    </section>
+
+    <!-- Register Property -->
+    <section id="property" class="page">
+      <div class="section-heading">
+        <h2>ลงทะเบียนห้องเช่า</h2>
+        <p>เพิ่มข้อมูลห้องเช่าใหม่เข้าสู่ระบบ Blockchain</p>
+      </div>
+
+      <form id="propertyForm" class="form-card">
+        <label>ชื่อห้องเช่า</label>
+        <input id="propertyName" type="text"
+               placeholder="เช่น Room A101" required>
+
+        <label>ค่าเช่าต่อครั้ง (ETH)</label>
+        <input id="propertyRent" type="number"
+               step="any" min="0.000000000000000001"
+               placeholder="0.01" required>
+
+        <label>เงินประกัน (ETH)</label>
+        <input id="propertyDeposit" type="number"
+               step="any" min="0.000000000000000001"
+               placeholder="0.02" required>
+
+        <button type="submit" class="primary-btn">
+          ลงทะเบียนห้องเช่า
+        </button>
+      </form>
+    </section>
+
+    <!-- Create Agreement -->
+    <section id="agreement" class="page">
+      <div class="section-heading">
+        <h2>สร้างสัญญาเช่า</h2>
+        <p>เจ้าของห้องสร้างสัญญาให้ผู้เช่า</p>
+      </div>
+
+      <form id="agreementForm" class="form-card">
+        <label>Property ID</label>
+        <input id="agreementPropertyId" type="number"
+               min="1" placeholder="1" required>
+
+        <label>Wallet Address ของผู้เช่า</label>
+        <input id="tenantAddress" type="text"
+               placeholder="0x..." required>
+
+        <label>วันที่เริ่มสัญญา</label>
+        <input id="startDate" type="datetime-local" required>
+
+        <label>วันที่สิ้นสุดสัญญา</label>
+        <input id="endDate" type="datetime-local" required>
+
+        <button type="submit" class="primary-btn">
+          สร้างสัญญาเช่า
+        </button>
+      </form>
+    </section>
+
+    <!-- Confirm Agreement -->
+    <section id="confirm" class="page">
+      <div class="section-heading">
+        <h2>ยืนยันสัญญาเช่า</h2>
+        <p>ผู้เช่าตรวจสอบและยืนยันสัญญา</p>
+      </div>
+
+      <form id="confirmForm" class="form-card">
+        <label>Agreement ID</label>
+        <input id="confirmId" type="number"
+               min="1" placeholder="เช่น 4" required>
+
+        <button type="submit" class="primary-btn">
+          ยืนยันสัญญา
+        </button>
+      </form>
+    </section>
+
+    <!-- Deposit -->
+    <section id="deposit" class="page">
+      <div class="section-heading">
+        <h2>ฝากเงินประกัน</h2>
+        <p>ผู้เช่าฝากเงินประกันเข้าสู่ Smart Contract</p>
+      </div>
+
+      <form id="depositForm" class="form-card">
+        <label>Agreement ID</label>
+        <input id="depositId" type="number"
+               min="1" placeholder="เช่น 4" required>
+
+        <p class="form-note">
+          ระบบจะอ่านจำนวนเงินประกันจากสัญญาโดยอัตโนมัติ
+        </p>
+
+        <button type="submit" class="primary-btn">
+          ฝากเงินประกัน
+        </button>
+      </form>
+    </section>
+
+    <!-- Payment -->
+    <section id="payment" class="page">
+      <div class="section-heading">
+        <h2>ชำระค่าเช่า</h2>
+        <p>บันทึกการชำระค่าเช่าผ่าน Blockchain</p>
+      </div>
+
+      <form id="paymentForm" class="form-card">
+        <label>Agreement ID</label>
+        <input id="paymentId" type="number"
+               min="1" placeholder="เช่น 4" required>
+
+        <p class="form-note">
+          ระบบจะอ่านค่าเช่าจากข้อมูลห้องเช่าโดยอัตโนมัติ
+        </p>
+
+        <button type="submit" class="primary-btn">
+          ชำระค่าเช่า
+        </button>
+      </form>
+    </section>
+
+    <!-- Refund -->
+    <section id="refund" class="page">
+      <div class="section-heading">
+        <h2>คืนเงินประกัน</h2>
+        <p>เจ้าของห้องคืนเงินหลังสิ้นสุดสัญญา</p>
+      </div>
+
+      <form id="refundForm" class="form-card">
+        <label>Agreement ID</label>
+        <input id="refundId" type="number"
+               min="1" placeholder="เช่น 4" required>
+
+        <button type="submit" class="primary-btn">
+          คืนเงินประกัน
+        </button>
+      </form>
+    </section>
+
+    <!-- Dispute -->
+    <section id="dispute" class="page">
+      <div class="section-heading">
+        <h2>จัดการข้อพิพาท</h2>
+        <p>แจ้งปัญหาและให้ผู้ดูแลตัดสินการคืนเงินประกัน</p>
+      </div>
+
+      <form id="disputeForm" class="form-card">
+        <h3>แจ้งข้อพิพาท</h3>
+
+        <label>Agreement ID</label>
+        <input id="disputeId" type="number"
+               min="1" placeholder="เช่น 4" required>
+
+        <button type="submit" class="primary-btn">
+          แจ้งข้อพิพาท
+        </button>
+      </form>
+
+      <form id="resolveForm" class="form-card">
+        <h3>ตัดสินข้อพิพาท (Admin)</h3>
+
+        <label>Agreement ID</label>
+        <input id="resolveId" type="number"
+               min="1" required>
+
+        <label>จำนวนเงินคืนผู้เช่า (ETH)</label>
+        <input id="tenantAmount" type="number"
+               step="any" min="0" placeholder="0.015" required>
+
+        <label>จำนวนเงินให้เจ้าของห้อง (ETH)</label>
+        <input id="ownerAmount" type="number"
+               step="any" min="0" placeholder="0.005" required>
+
+        <button type="submit" class="primary-btn">
+          ยืนยันการตัดสิน
+        </button>
+      </form>
+    </section>
+
+    <footer class="footer">
+      RentSpace © 2026 · Powered by Ethereum Sepolia
+    </footer>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
